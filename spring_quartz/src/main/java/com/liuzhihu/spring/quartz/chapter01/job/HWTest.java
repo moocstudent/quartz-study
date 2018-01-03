@@ -12,6 +12,7 @@ import org.quartz.impl.StdScheduler;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.object.StoredProcedure;
 
 public class HWTest {
 	
@@ -32,6 +33,7 @@ public class HWTest {
 			// 任务执行类
 					.withIdentity("job1_1", "jGroup1")
 					// 任务名，任务组
+					.storeDurably(true)
 					.build();
 			
 			// 触发器类型
