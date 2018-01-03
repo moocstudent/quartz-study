@@ -44,7 +44,7 @@ public class RAMQuartz {
 		Trigger t = TriggerBuilder.newTrigger().withDescription("").withIdentity("ramTrigger", "ramTriggerGroup")
 				.startAt(statTime) // 默认当前时间启动
 				.withSchedule(CronScheduleBuilder.cronSchedule("0/2 * * * * ?")) // 两秒执行一次
-				// .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).withRepeatCount(10))// 每5s执行一次，总共执行10次
+				// .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).withRepeatCount(10))//每5s执行一次，总共执行10次
 				.build();
 
 		// 5.注册任务和定时器
@@ -52,6 +52,7 @@ public class RAMQuartz {
 
 		// 6.启动 调度器
 		scheduler.start();
+		// scheduler.startDelayed(10);//延迟10s启动
 		_log.info("启动时间 ： " + new Date());
 
 	}
