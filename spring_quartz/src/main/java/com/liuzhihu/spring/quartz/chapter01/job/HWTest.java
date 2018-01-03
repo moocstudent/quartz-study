@@ -14,46 +14,49 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.object.StoredProcedure;
 
+/***
+ * jdbc版本的定时任务实现
+ * 
+ * @author liuzhihu
+ *
+ */
 public class HWTest {
-	
-	 private static Scheduler scheduler;
-	 
+
+	private static Scheduler scheduler;
+
 	public static void main(String[] args) {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("spring_quartz.xml");
 
-		 scheduler = (StdScheduler)ac.getBean("scheduler");
-		 
-		 startSchedule();
+		scheduler = (StdScheduler) ac.getBean("scheduler");
+
+		startSchedule();
 	}
-	
+
 	public static void startSchedule() {
 		try {
 			// 1、创建一个JobDetail实例，指定Quartz
 			JobDetail jobDetail = JobBuilder.newJob(HelloWorldJob.class)
-			// 任务执行类
+					// 任务执行类
 					.withIdentity("job1_1", "jGroup1")
 					// 任务名，任务组
-					.storeDurably(true)
-					.build();
-			
+					.storeDurably(true).build();
+
 			// 触发器类型
-			//SimpleScheduleBuilder builder = SimpleScheduleBuilder
-					// 设置执行次数
-				    //.repeatSecondlyForTotalCount(5);
-		
+			// SimpleScheduleBuilder builder = SimpleScheduleBuilder
+			// 设置执行次数
+			// .repeatSecondlyForTotalCount(5);
+
 			CronScheduleBuilder builder = CronScheduleBuilder.cronSchedule("0/2 * * * * ?");
 			// 2、创建Trigger
-			Trigger trigger = TriggerBuilder.newTrigger()
-					.withIdentity("trigger1_1", "tGroup1").startNow()
-					.withSchedule(builder)
-					.build();
-			
+			Trigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger1_1", "tGroup1").startNow()
+					.withSchedule(builder).build();
+
 			// 3、创建Scheduler
-		    scheduler = StdSchedulerFactory.getDefaultScheduler();
+			scheduler = StdSchedulerFactory.getDefaultScheduler();
 			scheduler.start();
 			// 4、调度执行
 			scheduler.scheduleJob(jobDetail, trigger);
-			
+
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
