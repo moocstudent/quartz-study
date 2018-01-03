@@ -8,6 +8,7 @@ import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
+import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
@@ -41,9 +42,9 @@ public class RAMQuartz {
 		// 4.创建Trigger
 		// 使用SimpleScheduleBuilder或者CronScheduleBuilder
 		Trigger t = TriggerBuilder.newTrigger().withDescription("").withIdentity("ramTrigger", "ramTriggerGroup")
-				// .withSchedule(SimpleScheduleBuilder.simpleSchedule())
 				.startAt(statTime) // 默认当前时间启动
 				.withSchedule(CronScheduleBuilder.cronSchedule("0/2 * * * * ?")) // 两秒执行一次
+				// .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).withRepeatCount(10))// 每5s执行一次，总共执行10次
 				.build();
 
 		// 5.注册任务和定时器
