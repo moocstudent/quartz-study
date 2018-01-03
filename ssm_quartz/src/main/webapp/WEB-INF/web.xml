@@ -23,7 +23,7 @@
   </filter-mapping>
   <filter>
     <filter-name>LoginFilter</filter-name>
-    <filter-class>org.ssm.dufy.filter.LoginFilter</filter-class>
+    <filter-class>org.ssm.liuzhihu.filter.LoginFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * 	 <aop:aspectj-autoproxy proxy-target-class="true"/>
  * 3》写AOP进行测试
  * 
- * @author dufy
+ * @author liuzhihu
  * 
  */
 @Aspect
@@ -28,7 +28,7 @@ public class ShiroAOP {
 	 * @param jp
 	 * @throws Exception 
 	 */
-	/*@Before("execution(* org.ssm.dufy.web.UserController*.*(..))")*/
+	/*@Before("execution(* org.ssm.liuzhihu.web.UserController*.*(..))")*/
 	public void hasPermitsXML(JoinPoint jp) throws Exception  {
 
 		System.out.println("------------------------");
