@@ -38,6 +38,7 @@ public class QuartzJdbcTest {
 					// 任务执行类
 					.withIdentity("job1_1", "jGroup1")
 					// 任务名，任务组
+					// .storeDurably(true)//没有这个，执行完成后，就会在数据库中删除，没有办法看到对应的值
 					.build();
 
 			// 触发器类型
@@ -62,7 +63,7 @@ public class QuartzJdbcTest {
 				e.printStackTrace();
 			}
 
-			// 一分钟后，关闭调度器
+			// 关闭调度器
 			scheduler.shutdown();
 
 		} catch (SchedulerException e) {
